@@ -1,0 +1,34 @@
+<h1>All items</h1>
+
+<%= form_tag({controller: "items", action: "create"}, method: "post") do %>
+  <%= label_tag(:upc) %>
+  <%= text_field_tag(:upc) %>
+
+  <%= radio_button_tag(:method, "add", checked: true)%>
+  <%= label_tag(:method_add, "Add") %>
+  <%= radio_button_tag(:method, "remove") %>
+  <%= label_tag(:method_remove, "Remove") %>
+  <%= submit_tag("Submit UPC") %>
+<% end %>
+
+
+
+<%= form_tag(items_path, method: "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Items" %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th> Quantity</th>
+        <th>UPC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @items %>
+    </tbody>
+  </table>
+
+
