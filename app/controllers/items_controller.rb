@@ -28,7 +28,15 @@ class ItemsController < ApplicationController
         redirect_to items_path
       end 
     else
-     
+      product = lookup_upc(params[:upc]) 
+      new_item = Item.new({name: product["description"], upc: product["upc"]})
+      if new_item.save
+        flash[:success] = "Item added successfully"
+        redirect_to items_path
+      else
+        flash[:danger] = "Unable to add item"
+        redirect_to items_path
+      end
     end
   end
 
@@ -40,4 +48,5 @@ class ItemsController < ApplicationController
         redirect_to login_path
       end
     end
+  
 end
