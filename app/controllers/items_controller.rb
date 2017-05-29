@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 
-  before_action :logged_in_user, only: [:index, :create, :edit, :update, :destroy]
+  before_action :logged_in_user # only: [:index, :create, :edit, :update, :destroy]
 
   def index 
     if params[:search]
@@ -8,6 +8,9 @@ class ItemsController < ApplicationController
     else
       @items = Item.all
     end
+  end
+ 
+  def new 
   end
 
   def create

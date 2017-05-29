@@ -6,6 +6,7 @@
         <li><%= link_to "Home", root_path %></li>
         <% if logged_in? %>
           <li><%= link_to "List", items_path %></li>
+          <li><%= link_to "Add/Remove", new_item_path %></li>
           <% if current_user.admin? %>
             <li><%= link_to "Users", users_path %></li>
           <% end %>
