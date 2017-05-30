@@ -4,7 +4,7 @@ module ItemsHelper
 require 'xmlrpc/client'
 
  def lookup_upc(upc)
-  rpc_key = UPC_LOOKUP_KEY 
+  rpc_key = ENV['UPC_LOOKUP_KEY'] 
   server = XMLRPC::Client.new2('https://www.upcdatabase.com/xmlrpc')
   begin
     response = server.call('lookup', { rpc_key: rpc_key, upc: upc })
