@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
   def index 
     if params[:search]
-      @items = Item.where("name like ?", "%#{params[:search]}%")
+      @items = Item.where("name like ?", "%#{params[:search].upcase}%")
     else
       @items = Item.all
     end
