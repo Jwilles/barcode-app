@@ -6,23 +6,25 @@ class UpcApiController < ApplicationController
     item = Item.find_by upc: params[:upc] 
     if item 
       if params[:method] == 'add'
-        new_quant = item.quantity += 1
-        item.update_attributes(quantity: new_quant)
+        item.increment!(:quantity, by=1)
         head :ok
       elsif params[:method] == 'remove' && item.quantity > 0
-        new_quant = item.quantity -= 1
-        item.update_attributes(quantity: new_quant)
+        item.decrement!(:quantity, by=1)
         head :ok
       else
         head :internal_server_error
       end 
     else
       product = lookup_upc(params[:upc]) 
-      new_item = Item.new({name: product["description"], upc: product["upc"]})
-      if new_item.save
-        head :ok
+      if product 
+        new_item = Item.new({name: product["description"], upc: product["upc"]})
+        if new_item.save
+          head :ok
+        else
+          head :internal_server_error
+        end
       else
-        head :internal_server_error
+        head :bad_request
       end
     end
   end

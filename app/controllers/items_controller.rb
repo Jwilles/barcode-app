@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
   def index 
     if params[:search]
-      @items = Item.where(name: params[:search])
+      @items = Item.where("name like ?", "%#{params[:search]}%")
     else
       @items = Item.all
     end
@@ -17,13 +17,11 @@ class ItemsController < ApplicationController
     item = Item.find_by upc: params[:upc] 
     if item 
       if params[:method] == 'add'
-        new_quant = item.quantity += 1
-        item.update_attributes(quantity: new_quant)
+        item.increment!(:quantity, by = 1)
         flash[:success] = "Item Added" 
         redirect_to items_path
       elsif params[:method] == 'remove' && item.quantity > 0
-        new_quant = item.quantity -= 1
-        item.update_attributes(quantity: new_quant)
+        item.decrement!(:quantity, by = 1)
         flash[:success] = "Item Removed"
         redirect_to items_path
       else
@@ -32,13 +30,18 @@ class ItemsController < ApplicationController
       end 
     else
       product = lookup_upc(params[:upc]) 
-      new_item = Item.new({name: product["description"], upc: product["upc"]})
-      if new_item.save
-        flash[:success] = "Item added successfully"
-        redirect_to items_path
+      if product 
+        new_item = Item.new({name: product["description"], upc: product["upc"]})
+        if new_item.save
+          flash[:success] = "Item added successfully"
+          redirect_to items_path
+        else
+          flash[:danger] = "Unable to add item"
+          redirect_to items_path
+        end
       else
-        flash[:danger] = "Unable to add item"
-        redirect_to items_path
+       flash[:danger] = "UPC Invalid"
+       redirect_to items_path  
       end
     end
   end
