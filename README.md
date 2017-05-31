@@ -3,7 +3,7 @@
 A Ruby on Rails web app that interfaces with a Raspberry Pi barcode scanner to keep track of the households groceries. Grocery list generation is hopefully coming soon.
 
 
-You can find this app deployed via Heroku https://willes-grocery-list.herokuapp.com/
+You can find this app deployed via Heroku at https://willes-grocery-list.herokuapp.com/
 
 # Usage
 
