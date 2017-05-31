@@ -1,19 +1,15 @@
-# README
+# Grocery List App
 
-* Ruby version
+A Ruby on Rails web app that interfaces with a Raspberry Pi barcode scanner to keep track of the households groceries. Grocery list generation is hopefully coming soon.
 
-* System dependencies
 
-* Configuration
+You can find this app deployed via Heroku https://willes-grocery-list.herokuapp.com/
 
-* Database creation
+# Usage
 
-* Database initialization
+1. First clone the repo and then run the following commands: 
+2. $ bundle install --without production  
+3. $ rails db:migrate
+4. $ rails server
+5. Navigate to http://localhost:3000 in your browser 
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

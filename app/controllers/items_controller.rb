@@ -40,7 +40,7 @@ class ItemsController < ApplicationController
           redirect_to items_path
         end
       else
-       flash[:danger] = "UPC Invalid"
+       flash[:danger] = "UPC Invalid or Unknown"
        redirect_to items_path  
       end
     end
